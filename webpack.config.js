@@ -7,22 +7,24 @@ module.exports = {
   module: {
     rules: [
       {
-        test:/\.(png|jpg|jpeg)$/,
-        use:['file-loader']
+        test: /\.(png|jpg|jpeg)$/,
+        use: ['file-loader']
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
-        options: { presets: ["@babel/env"] }
+        options: {
+          presets: ["@babel/env"]
+        }
       },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
       },
       {
-        test:/\.less$/,
-        use:['style-loader','css-loader','less-loader']
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
       }
     ]
   },
@@ -39,7 +41,7 @@ module.exports = {
     hot: true
   },
   plugins: [
-      new webpack.HotModuleReplacementPlugin(),
-      
-    ]
+    new webpack.HotModuleReplacementPlugin(),
+
+  ]
 };

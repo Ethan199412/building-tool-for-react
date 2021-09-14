@@ -2,17 +2,18 @@ const path = require("path");
 const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   mode: "development",
   module: {
     rules: [
       {
         test: /\.(png|jpg|jpeg)$/,
-        use: ['file-loader']
+        use: ['file-loader'],
+        exclude: /(node_modules|bower_components|dist)/
       },
       {
         test: /\.(js|jsx)$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules|bower_components|dist)/,
         loader: "babel-loader",
         options: {
           presets: ["@babel/env"]
@@ -20,15 +21,22 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        exclude: /(node_modules|bower_components|dist)/,
         use: ["style-loader", "css-loader"]
       },
       {
         test: /\.less$/,
+        exclude: /(node_modules|bower_components|dist)/,
         use: ['style-loader', 'css-loader', 'less-loader']
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /(node_modules|bower_components|dist)/,
       }
     ]
   },
-  resolve: { extensions: ["*", ".js", ".jsx"] },
+  resolve: { extensions: ["*", "ts", "tsx", ".js", ".jsx"] },
   output: {
     path: path.resolve(__dirname, "dist/"),
     publicPath: "/dist/",

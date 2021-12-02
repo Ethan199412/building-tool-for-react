@@ -1,6 +1,11 @@
 import * as React from "react";
-import "../index.less";
+import "./app.less";
+
+// 需要放 index.d.ts 文件到根目录并在 tsconfig
+// includes 里引入才能解决 vscode 报错
 import img from "../assets/react.jpg";
+
+console.log('app.tsx 加载')
 
 class App extends React.Component {
     constructor(props: any) {

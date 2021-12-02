@@ -4,6 +4,9 @@
 
 - 已支持 less
 - 已支持 ES6
-- 已支持 ES7 decorators, 使用 mobx 时请确保 mobx 小于版本 6，mobx-react 小于版本 7，因为高版本的 mobx 取消了装饰器
+- 已支持 ES7 decorators, 使用 mobx 时请确保 mobx 小于版本 6，mobx-react 小于版本 7，因为高版本的 mobx 取消了
+装饰器
+- 已支持 typescript
+- 采纳了 thread-loader
 
 后续会添加更多功能，敬请期待

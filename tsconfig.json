@@ -1,7 +1,8 @@
 {
-    "include":
-        ["src/ts/index.d.ts"]
-    ,
+    "include": [
+        "src",
+        "index.d.ts"
+    ],
     "compilerOptions": {
         "outDir": "./dist/",
         "noImplicitAny": false,

@@ -1,8 +1,10 @@
 const path = require("path");
 const webpack = require("webpack");
+const WebpackBar = require('webpackbar')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: "./src/index.js",
   mode: "development",
   module: {
     rules: [
@@ -14,10 +16,21 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components|dist)/,
-        loader: "babel-loader",
-        options: {
-          presets: ["@babel/env"]
-        }
+        use: [
+          {
+            loader: "thread-loader",
+            options: {
+              workers: 3
+            }
+          },
+          {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true
+            }
+          }
+
+        ],
       },
       {
         test: /\.css$/,
@@ -31,7 +44,23 @@ module.exports = {
       },
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: [
+          // { loader: 'thread-loader', options: { workers: 3 } },
+          {
+            loader: 'babel-loader',
+            options: {
+              // 启用缓存机制，在重复打包未改变过的模块时防止二次编译，同时加快打包速度
+              cacheDirectory: true,
+            },
+          },
+          {
+            loader: 'ts-loader',
+            // 不仅提升了性能，也解决了 ts-loader 和 thread-loader 兼容性问题
+            options: {
+              happyPackMode: true
+            }
+          },
+        ],
         exclude: /(node_modules|bower_components|dist)/,
       }
     ]
@@ -46,10 +75,18 @@ module.exports = {
     contentBase: path.join(__dirname, "public/"),
     port: 3001,
     publicPath: "http://localhost:3001/dist/",
-    hot: true
+    hot: true,
+    stats: {
+      all: false,
+      errors: true,
+      warnings: true,
+      color: true
+    }
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    new WebpackBar(),
+    new CleanWebpackPlugin()
   ],
   devtool: "inline-source-map"
 };

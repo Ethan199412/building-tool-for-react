@@ -6,10 +6,16 @@ import "./app.less";
 import img from "../assets/react.jpg";
 
 console.log('app.tsx 加载')
+if (module.hot) {
+    module.hot.accept('./app.tsx', () => {
+        console.log('[p0] hot module replacement')
+    })
+}
 
 class App extends React.Component {
     constructor(props: any) {
         super(props);
+        console.log('[p1]', module.hot)
     }
 
     render() {

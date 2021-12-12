@@ -1,11 +1,14 @@
 const path = require("path");
-const webpack = require("webpack");
 const WebpackBar = require('webpackbar')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: "./src/index.js",
-  mode: "development",
+  output: {
+    path: path.resolve(__dirname, "../dist/"),
+    publicPath: "../dist/",
+    filename: "bundle.js"
+  },
   module: {
     rules: [
       {
@@ -66,23 +69,6 @@ module.exports = {
     ]
   },
   resolve: { extensions: ["*", "ts", "tsx", ".js", ".jsx"] },
-  output: {
-    path: path.resolve(__dirname, "dist/"),
-    publicPath: "/dist/",
-    filename: "bundle.js"
-  },
-  devServer: {
-    contentBase: path.join(__dirname, "public/"),
-    port: 3001,
-    publicPath: "http://localhost:3001/dist/",
-    hot: true,
-    stats: {
-      all: false,
-      errors: true,
-      warnings: true,
-      color: true
-    }
-  },
   plugins: [
     // new webpack.HotModuleReplacementPlugin(),
     new WebpackBar(),

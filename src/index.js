@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./ts/app.tsx";
+import App from "./ts/app";
 
 console.log('index.js 加载')
 

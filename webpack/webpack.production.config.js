@@ -3,4 +3,5 @@ const { merge } = require('webpack-merge')
 
 exports.default = merge(config, {
     mode: "production",
+    devtool: "hidden-source-map"
 })

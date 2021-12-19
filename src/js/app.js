@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import "./index.less";
-import img from "./react.jpg";
+import img from "../assets/react.jpg";
 
+const a =undefined
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props);a.e=1
   }
 
   render() {

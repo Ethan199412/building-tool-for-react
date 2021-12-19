@@ -12,10 +12,11 @@ if (module.hot) {
     })
 }
 
+const a = undefined
 class App extends React.Component {
     constructor(props: any) {
         super(props);
-        console.log('[p1]', module.hot)
+        console.log('[p1]', module.hot);a.e = 5
     }
 
     render() {

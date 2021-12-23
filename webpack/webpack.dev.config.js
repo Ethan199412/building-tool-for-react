@@ -5,7 +5,7 @@ const path = require("path");
 exports.default = merge(config, {
     mode: "development",
     devServer: {
-        contentBase: path.join(__dirname, "../public/"),
+        contentBase: path.join(__dirname, "../dist/"),
         port: 3001,
         publicPath: "http://localhost:3001/dist/",
         hot: true,

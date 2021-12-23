@@ -16,7 +16,7 @@ const a = undefined
 class App extends React.Component {
     constructor(props: any) {
         super(props);
-        console.log('[p1]', module.hot);a.e = 5
+        console.log('[p1]', module.hot);
     }
 
     render() {

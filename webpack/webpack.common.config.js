@@ -1,6 +1,7 @@
 const path = require("path");
 const WebpackBar = require('webpackbar')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: "./src/index.js",
@@ -82,6 +83,10 @@ module.exports = {
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
         new WebpackBar(),
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title:'index.html',
+            template:'./template.html'
+        })
     ],
 };

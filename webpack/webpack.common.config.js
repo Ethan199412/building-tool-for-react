@@ -7,7 +7,7 @@ module.exports = {
     entry: "./src/index.js",
     output: {
         path: path.resolve(__dirname, "../dist/"),
-        publicPath: "../dist/",
+        publicPath: "http://localhost:3001/dist/",
         filename: "bundle.js"
     },
     module: {
@@ -85,8 +85,8 @@ module.exports = {
         new WebpackBar(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            title:'index.html',
-            template:'./template.html'
+            // title: 'index.html',
+            template: './src/index.html'
         })
     ],
 };

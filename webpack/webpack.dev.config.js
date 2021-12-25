@@ -1,11 +1,12 @@
 const config = require('./webpack.common.config')
 const { merge } = require('webpack-merge')
 const path = require("path");
+console.log('[p0] __dirname', __dirname)
 
 exports.default = merge(config, {
     mode: "development",
     devServer: {
-        contentBase: path.join(__dirname, "../dist/"),
+        contentBase: path.join(__dirname, "../dist/index.html"),
         port: 3001,
         publicPath: "http://localhost:3001/dist/",
         hot: true,
@@ -16,7 +17,7 @@ exports.default = merge(config, {
             color: true
         }
     },
-    devtool: "hidden-source-map"
+    devtool: "hidden-source-map",
     /**
      * inline-source-map: 只生成一个内联的 source-map，有错误代码信息，源代码错误位置
      * eval-source-map: 每个文件生成一个 source-map，内联，会看到多个 sourceMappingUrl，有错误代码信息，源代码错误位置，同时有一个 hash 值

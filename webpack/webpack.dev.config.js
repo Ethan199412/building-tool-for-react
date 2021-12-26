@@ -1,14 +1,25 @@
-const config = require('./webpack.common.config')
+const getConfig = require('./webpack.common.config')
 const { merge } = require('webpack-merge')
 const path = require("path");
 console.log('[p0] __dirname', __dirname)
 
+const mode = 'development'
+const config = getConfig(mode)
+const rules = config.module.rules[0].oneOf
+
+rules.forEach(e => {
+    const { use } = e
+    if (use.includes('css-loader')) {
+        use.unshift('style-loader')
+    }
+})
+
 exports.default = merge(config, {
-    mode: "development",
+    mode,
     devServer: {
-        contentBase: path.join(__dirname, "../dist/index.html"),
+        contentBase: path.join(__dirname, "../html/dev"), // 放 html 的位置
         port: 3001,
-        publicPath: "http://localhost:3001/dist/",
+        publicPath: "http://localhost:3001/dist/", // html 引 js 的位置
         hot: true,
         stats: {
             all: false,

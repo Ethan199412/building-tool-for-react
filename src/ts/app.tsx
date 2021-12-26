@@ -29,6 +29,8 @@ class App extends React.Component {
                     compared with create - react - app, this building tool will expose
                     webpack.config.js so that you could customize for your project.
                 </div>
+                <div> boy ♂ next ♂ door </div>
+                <div>全给党</div>
             </div>
         );
     }

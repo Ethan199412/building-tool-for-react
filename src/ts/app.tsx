@@ -1,6 +1,8 @@
 import * as React from "react";
 import "./app.less";
+import { mult, pow } from '../utils'
 
+console.log('[p1]', mult(2, 3))
 // 需要放 index.d.ts 文件到根目录并在 tsconfig
 // includes 里引入才能解决 vscode 报错
 import img from "../assets/react.jpg";
@@ -12,7 +14,7 @@ if (module.hot) {
     })
 }
 
-const a = undefined
+
 class App extends React.Component {
     constructor(props: any) {
         super(props);

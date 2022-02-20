@@ -22,22 +22,20 @@ config.plugins.push(
         // chunkFilename: 'css/[id].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
-        // title: 'index.html',
         template: './html/prod/index.html'
     }),
-    new WorkboxWebpackPlugin.GenerateSW({
-        clientsClaim: true,
-        skipWaiting: true
-    })
+    // new WorkboxWebpackPlugin.GenerateSW({
+    //     clientsClaim: true,
+    //     skipWaiting: true
+    // })
 )
+
+config.externals = {
+    'react': 'react',
+    'react-dom': 'react-dom'
+}
 
 exports.default = merge(config, {
     mode: "production",
     devtool: "hidden-source-map",
-    // plugins: [
-    //     new HtmlWebpackPlugin({
-    //         // title: 'index.html',
-    //         template: './src/index.html'
-    //     })
-    // ]
 })

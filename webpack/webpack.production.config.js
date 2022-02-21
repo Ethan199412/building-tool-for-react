@@ -2,6 +2,7 @@ const getConfig = require('./webpack.common.config')
 const { merge } = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin')
 
 const mode = 'production'
 const config = getConfig(mode)
@@ -23,6 +24,10 @@ config.plugins.push(
     new HtmlWebpackPlugin({
         // title: 'index.html',
         template: './html/prod/index.html'
+    }),
+    new WorkboxWebpackPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true
     })
 )
 

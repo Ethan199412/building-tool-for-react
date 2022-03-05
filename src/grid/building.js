@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import img from "../assets/react.jpg";
-import { judgeOneBlock } from "../utils/utils";
+import { judgeOneBlock, calBlocks } from "../utils/utils";
 import './building.less'
 
-
+const x = 8, y = 8
 class Building extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      grid: new Array(5).fill(Array(5).fill(0)),
-      gridCopy: new Array(5).fill(Array(5).fill(0)),
-      isOneBlock: false
+      grid: new Array(y).fill(Array(x).fill({})),
+      gridCopy: new Array(y).fill(Array(x).fill({})),
+      isOneBlock: false,
+      totalBlocks: 0
     }
     this.selectedHouses = []
     document.addEventListener('keydown', this.handleKeyDown)
@@ -31,22 +32,24 @@ class Building extends Component {
 
     if (this.ctrl) {
       this.selectedHouses.push([floorIndex, houseIndex])
-      grid[floorIndex][houseIndex] = 1
+      grid[floorIndex][houseIndex].selected = true
       this.setState({
         grid
       })
     }
     else {
       this.selectedHouses = [[floorIndex, houseIndex]]
-      gridCopy[floorIndex][houseIndex] = 1
+      gridCopy[floorIndex][houseIndex].selected = true
       this.setState({
         grid: gridCopy
       })
     }
 
-    const res = judgeOneBlock(this.selectedHouses, grid[0].length - 1, grid.length - 1)
+    const res = judgeOneBlock(this.selectedHouses, x - 1, y - 1)
+    const totalBlocks = calBlocks(this.selectedHouses, x - 1, y - 1)
     this.setState({
-      isOneBlock: res
+      isOneBlock: res,
+      totalBlocks
     })
   }
 
@@ -64,14 +67,15 @@ class Building extends Component {
     const { gridCopy } = this.state
     this.setState({
       grid: gridCopy,
-      isOneBlock: false
+      isOneBlock: false,
+      totalBlocks: 0
     })
     this.selectedHouses = []
   }
 
   render() {
     console.log(this.selectedHouses)
-    const { grid, isOneBlock } = this.state
+    const { grid, isOneBlock, totalBlocks } = this.state
     console.log('isOneBlock', isOneBlock)
     return (
       <div>
@@ -81,8 +85,8 @@ class Building extends Component {
               return <div className="unit-container flex">
                 {
                   floor.map((house, houseIndex) => {
-                    return <div className={`house-container ${house == 1 ? 'selected' : ''}`} onClick={(e) => this.handleClickHouse(floorIndex, houseIndex, e)}>
-
+                    return <div className={`house-container ${house.selected ? 'selected' : ''}`} onClick={(e) => this.handleClickHouse(floorIndex, houseIndex, e)}>
+                      {floorIndex}{houseIndex}
                     </div>
                   })
                 }
@@ -90,6 +94,7 @@ class Building extends Component {
             })}
         </div>
         <div>是一片：{isOneBlock.toString()}</div>
+        <div>有几片：{totalBlocks}</div>
       </div>
     );
   }

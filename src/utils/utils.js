@@ -1,52 +1,96 @@
-export const judgeOneBlock = (selectedHouses, maxX, maxY) => {
-    const move = (currentHouse) => {
+const move = ({ arriveSet, selectedHouses, maxX, maxY }) => {
+    const innerMove = (currentHouse) => {
         arriveSet.add(currentHouse)
-        selectedHouses.remove(currentHouse)
-        console.log('[p0.1]', Array.from(arriveSet), Array.from(selectedHouses))
+        selectedHouses.delete(currentHouse)
+
+        console.log('[1.0] arriveSet', Array.from(arriveSet), 'selectedHouses', Array.from(selectedHouses))
         let nextHouse
-        let [y, x] = currentHouse
+        let [y, x] = currentHouse.split(',')
 
         if (x > 0) {
             nextHouse = getHouse(currentHouse, ACTION.LEFT)
-            if (selectedHouses.has(nextHouse)) move(nextHouse)
+            if (selectedHouses.has(nextHouse)) innerMove(nextHouse)
         }
         if (y > 0) {
-            nextHouse = getHouse(currentHouse, ACTION.DOWN)
-            if (selectedHouses.has(nextHouse)) move(nextHouse)
+            nextHouse = getHouse(currentHouse, ACTION.UP)
+            if (selectedHouses.has(nextHouse)) innerMove(nextHouse)
         }
         if (x < maxX) {
             nextHouse = getHouse(currentHouse, ACTION.RIGHT)
-            if (selectedHouses.has(nextHouse)) move(nextHouse)
+            if (selectedHouses.has(nextHouse)) innerMove(nextHouse)
         }
         if (y < maxY) {
             nextHouse = getHouse(currentHouse, ACTION.DOWN)
-            if (selectedHouses.has(nextHouse)) move(nextHouse)
+            if (selectedHouses.has(nextHouse)) innerMove(nextHouse)
         }
     }
-    selectedHouses = JSON.parse(JSON.stringify(selectedHouses))
+    return innerMove
+}
+
+export const judgeOneBlock = (selectedHouses, maxX, maxY) => {
+    selectedHouses = JSON.parse(JSON.stringify(selectedHouses)).map(e => e.join(','))
+    const originSize = selectedHouses.length
     const startHouse = selectedHouses[0]
     selectedHouses = new Set(selectedHouses)
     const arriveSet = new Set()
 
-    move(startHouse)
-    if (selectedHouses.size == arriveSet.size) {
+    const innerMove = move({
+        arriveSet,
+        selectedHouses,
+        maxX,
+        maxY
+    })
+    innerMove(startHouse)
+
+    if (originSize == arriveSet.size) {
         return true
     }
     return false
 }
 
+export const calBlocks = (selectedHouses, maxX, maxY) => {
+    selectedHouses = JSON.parse(JSON.stringify(selectedHouses)).map(e => e.join(','))
+    const originSize = selectedHouses.length
+    let startHouse = selectedHouses[0]
+    selectedHouses = new Set(selectedHouses)
+    const arriveSet = new Set()
+
+    const innerMove = move({
+        arriveSet,
+        selectedHouses,
+        maxX,
+        maxY
+    })
+    let count = 0
+    // if (selectedHouses.size == 0) return 0
+    while (selectedHouses.size > 0) {
+        innerMove(startHouse)
+        count += 1
+        if (selectedHouses.size > 0) {
+            startHouse = Array.from(selectedHouses)[0]
+        }
+    }
+    return count
+}
+
 const getHouse = (currentHouse, action) => {
-    const [y, x] = currentHouse
+    const [y, x] = currentHouse.split(',').map(e => Number(e))
+    let nextHouse
     switch (action) {
         case ACTION.LEFT:
-            return [y, x - 1]
+            nextHouse = [y, x - 1]
+            break
         case ACTION.UP:
-            return [y - 1, x]
+            nextHouse = [y - 1, x]
+            break
         case ACTION.RIGHT:
-            return [y, x + 1]
+            nextHouse = [y, x + 1]
+            break
         case ACTION.DOWN:
-            return [y + 1, x]
+            nextHouse = [y + 1, x]
+            break
     }
+    return nextHouse.join(',')
 }
 
 const ACTION = {

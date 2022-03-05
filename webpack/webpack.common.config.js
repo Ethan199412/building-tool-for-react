@@ -26,12 +26,16 @@ function getConfig(mode) {
                             test: /\.(js|jsx)$/,
                             exclude: /(node_modules|bower_components|dist)/,
                             use: [
-                                //   {
+                                /**
+                                 * 开启多进程打包，打开进程一般 600 ms，
+                                 * 通信也有开销。
+                                 */
+                                // {
                                 //     loader: "thread-loader",
                                 //     options: {
-                                //       workers: 3
+                                //         workers: 3
                                 //     }
-                                //   },
+                                // },
                                 {
                                     loader: "babel-loader",
                                     options: {

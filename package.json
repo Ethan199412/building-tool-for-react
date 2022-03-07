@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --hot --color --open --config ./webpack/webpack.dev.config.js",
     "build": "webpack --config ./webpack/webpack.production.config.js",
-    "build-dev": "webpack --config ./webpack/webpack.dev.config.js"
+    "build-dev": "webpack --config ./webpack/webpack.dev.config.js",
+    "build-dll": "webpack --config ./webpack/webpack.dll.config.js"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "@webpack-cli/serve": "^1.3.0",
+    "add-asset-html-webpack-plugin": "^3.2.0",
     "babel-loader": "^8.0.2",
     "babel-plugin-transform-decorators": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",

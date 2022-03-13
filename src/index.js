@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./ts/app";
+import Demo from "./ts/hooks/demo";
+import Demo1 from "./ts/hooks/demo1";
+import Demo3 from "./ts/hooks/demo3";
+
 
 console.log('index.js 加载')
 
@@ -15,4 +19,6 @@ console.log('index.js 加载')
 //         })
 // }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<Demo3
+    // list={['car', 'bike']}
+/>, document.getElementById("root"));

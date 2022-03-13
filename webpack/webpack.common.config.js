@@ -44,7 +44,8 @@ function getConfig(mode) {
                                          * 如果重新打包，会导致所有缓存失效。但你有可能只
                                          * 改一种类型的文件。
                                          */
-                                        cacheDirectory: true
+                                        cacheDirectory: true,
+                                        plugins: ['@babel/plugin-transform-runtime']
                                     }
                                 }
 

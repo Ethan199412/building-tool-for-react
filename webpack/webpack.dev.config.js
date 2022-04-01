@@ -28,7 +28,7 @@ exports.default = merge(config, {
             color: true
         }
     },
-    devtool: "hidden-source-map",
+    devtool: "eval-cheap-module-source-map",
     /**
      * inline-source-map: 只生成一个内联的 source-map，有错误代码信息，源代码错误位置
      * eval-source-map: 每个文件生成一个 source-map，内联，会看到多个 sourceMappingUrl，有错误代码信息，源代码错误位置，同时有一个 hash 值

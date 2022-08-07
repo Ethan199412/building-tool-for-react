@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./ts/app";
+import './locale';
 
 console.log('index.js 加载')
 

@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@ant-design/charts": "^1.4.2",
     "@babel/cli": "^7.1.0",
     "@babel/core": "^7.12.16",
     "@babel/plugin-proposal-class-properties": "^7.13.0",

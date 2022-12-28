@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const num = 1000000
+
+        const arr = []
+        for (let i = 0; i < num; i++) {
+            arr.push(i)
+        }
+
+        const set = new Set(arr)
+
+        const times = 10000
+
+        const t1 = +new Date()
+        for (let i = 0; i < times; i++) {
+            let target = Math.round(Math.random() * num)
+            arr.includes(target)
+        }
+        const t2 = +new Date()
+        console.log('arr time:', t2 - t1)
+
+        const t3 = +new Date()
+        for (let i = 0; i < times; i++) {
+            let target = Math.round(Math.random() * num)
+            set.has(target)
+        }
+        const t4 = +new Date()
+        console.log('set time:', t4 - t3)
+    </script>
+</body>
+
+</html>

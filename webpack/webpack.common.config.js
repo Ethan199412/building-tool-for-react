@@ -52,12 +52,12 @@ function getConfig(mode) {
                         },
                         {
                             test: /\.css$/,
-                            exclude: /(node_modules|bower_components|dist)/,
+                            exclude: /(bower_components)/,
                             use: ["css-loader"]
                         },
                         {
                             test: /\.less$/,
-                            exclude: /(node_modules|bower_components|dist)/,
+                            exclude: /(bower_components)/,
                             use: ['css-loader', 'less-loader']
                         },
                         {

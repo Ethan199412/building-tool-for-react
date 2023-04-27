@@ -6,6 +6,7 @@ console.log('[p1]', mult(2, 3))
 // 需要放 index.d.ts 文件到根目录并在 tsconfig
 // includes 里引入才能解决 vscode 报错
 import img from "../assets/react.jpg";
+import SubComponent from "../submodule/SubComponent";
 
 console.log('app.tsx 加载')
 if (module.hot) {
@@ -33,6 +34,7 @@ class App extends React.Component {
                 </div>
                 <div> boy ♂ next ♂ door </div>
                 <div>全给党</div>
+                <SubComponent/>
             </div>
         );
     }

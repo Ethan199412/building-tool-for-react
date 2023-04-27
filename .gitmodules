@@ -1,0 +1,3 @@
+[submodule "src/submodule"]
+	path = src/submodule
+	url = /Users/lijiahao/Documents/private-project/BuildingToolsForReact/src/submodule

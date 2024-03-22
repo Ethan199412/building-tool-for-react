@@ -27,12 +27,12 @@ config.plugins.push(
     new HtmlWebpackPlugin({
         template: './html/prod/index.html'
     }),
-    new webpack.DllReferencePlugin({
-        manifest: path.resolve(__dirname, "../dll/react.manifest.json"),
-    }),
-    new AddAssetHtmlWebpackPlugin({
-        filepath: path.resolve(__dirname, '../dll/react.dll.js')
-    })
+    // new webpack.DllReferencePlugin({
+    //     manifest: path.resolve(__dirname, "../dll/react.manifest.json"),
+    // }),
+    // new AddAssetHtmlWebpackPlugin({
+    //     filepath: path.resolve(__dirname, '../dll/react.dll.js')
+    // })
     /* pwa */
     // new WorkboxWebpackPlugin.GenerateSW({
     //     clientsClaim: true,

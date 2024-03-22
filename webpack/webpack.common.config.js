@@ -8,7 +8,7 @@ function getConfig(mode) {
         entry: "./src/index.js",
         output: {
             path: path.resolve(__dirname, "../dist/"),
-            publicPath: "http://localhost:3001/dist/",
+            publicPath: "http://localhost:3003/dist/",
             filename: mode == 'production' ? "bundle.[contenthash:10].js" : "bundle.js"
         },
         module: {

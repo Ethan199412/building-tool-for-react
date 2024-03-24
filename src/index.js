@@ -4,6 +4,7 @@ import App from "./ts/app";
 
 console.log('index.js 加载')
 
+/* if you want pwa support */
 // if ('serviceWorker' in navigator) {
 //     window.addEventListener('load',
 //         () => {

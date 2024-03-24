@@ -8,7 +8,6 @@ axios.defaults.withCredentials = true
 // 需要放 index.d.ts 文件到根目录并在 tsconfig
 // includes 里引入才能解决 vscode 报错
 import img from "../assets/react.jpg";
-console.log('[p1]', img)
 
 class App extends React.Component {
     constructor(props: any) {
@@ -16,7 +15,7 @@ class App extends React.Component {
     }
 
     handleClick = () => {
-        // axios.get()
+        console.log("click triggered")
     }
 
     render() {

@@ -1,7 +1,8 @@
 const path = require("path");
 const WebpackBar = require('webpackbar')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CustomProgressBarPlugin = require("./plugins/CustomProgressBarPlugin.js");
 
 function getConfig(mode) {
     return {
@@ -92,7 +93,8 @@ function getConfig(mode) {
         resolve: { extensions: [".js", ".jsx", ".ts", ".tsx", "."] },
         plugins: [
             // new webpack.HotModuleReplacementPlugin(),
-            new WebpackBar(),
+            // new WebpackBar(),
+            new CustomProgressBarPlugin({ totalModules: 61 }),
             new CleanWebpackPlugin(),
         ],
     };

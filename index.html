@@ -82,7 +82,7 @@
         let draw = document.querySelector('#draw');
         let ul = draw.children[0];
         let firstStartY = 0;
-        let totalDistant = 0; //用来记录每次触摸时上一次的偏移总距离
+        let totalDistant = 0; //用来记录每次触摸时上一次的偏移总距离，这个相当于一个 offset
         let maxDown = 50;
         let maxUp = -(ul.offsetHeight - draw.offsetHeight + maxDown);
         let maxUpBounce = 0;
@@ -98,12 +98,15 @@
             ul.style.transition = "none"
             let distant = e.changedTouches[0].clientY - firstStartY;
             var tempDistant = distant + totalDistant; //加上上一次滑动的距离
+
+            
             if (tempDistant > maxDown) {
                 tempDistant = maxDown
             } else if (tempDistant < maxUp) {
                 tempDistant = maxUp
             }
-            ul.style.transition = "transform .3s"
+            console.log('[p1.0]',{distant, totalDistant,tempDistant})
+            ul.style.transition = "transform 0s"
             ul.style.transform = `translateY(${tempDistant}px)`;
         })
 
@@ -111,6 +114,8 @@
         ul.addEventListener('touchend', function (e) {
             let distant = e.changedTouches[0].clientY - firstStartY;
             totalDistant = totalDistant + distant; //记录上一次滑动的距离
+
+            console.log('[p1.1]',{totalDistant})
             if (totalDistant > maxUpBounce) {
                 totalDistant = maxUpBounce;
                 ul.style.transition = "transform .5s"

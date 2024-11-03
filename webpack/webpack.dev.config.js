@@ -14,7 +14,7 @@ rules.forEach(e => {
     }
 })
 
-const host = 'localhost'
+const host = '192.168.0.102'
 const port = 3003
 exports.default = merge(config, {
     mode,

@@ -19,11 +19,14 @@ class App extends React.Component {
       scrollYStart: 0,
       moveDistance: 0,
       sec: 0,
+      imageList: [],
+      topScrollYStart: 0,
+      downScrollYStart: 0
     };
   }
 
   componentDidMount(): void {
-    (window as any).container = document.querySelector(".container");
+    // (window as any).container = document.querySelector(".container");
   }
 
   state: any;
@@ -36,7 +39,8 @@ class App extends React.Component {
     console.log("[p1.0] ", { scroll, y: e.touches[0].clientY });
 
     this.setState({
-      scrollYStart: e.touches[0].clientY,
+        topScrollYStart: e.touches[0].clientY,
+        downScrollYStart: e.touches[0].clientY
     });
   };
 
@@ -55,11 +59,26 @@ class App extends React.Component {
     const { scrollTop, scrollHeight, clientHeight } =
       document.querySelector(".container")!;
 
-    console.log("[p1.3]", { scrollTop, scrollHeight, clientHeight });
+    console.log("[p1.3]", {scrollTop, clientHeight, scrollHeight, containerTop, scrollEleTop });
+
+    // 并未达边界条件重置，上顶端
+    if(scrollEleTop!- containerTop! < 10){
+        this.setState({
+            topScrollYStart: currentMouseY
+        })
+        // return
+    }
+
+    if(scrollTop + clientHeight < scrollHeight){
+        this.setState({
+            downScrollYStart: currentMouseY
+        })
+        // return
+    }
 
     // 滚动条在顶部
     if (scrollEleTop! - containerTop! >= 10) {
-      const offset = currentMouseY - this.state.scrollYStart;
+      const offset = currentMouseY - this.state.topScrollYStart;
       this.setState({
         moveDistance: offset ** 0.8,
         sec: 0,
@@ -68,8 +87,9 @@ class App extends React.Component {
     }
 
     // 滚动条在底部
+    // 这个公式很重要，判断滚动条是否触底的重要条件
     if (scrollTop + clientHeight >= scrollHeight) {
-        const offset = currentMouseY - this.state.scrollYStart;
+        const offset = currentMouseY - this.state.downScrollYStart;
         console.log('[p1.5] offset', offset)
         this.setState({
             moveDistance: -((-offset) ** 0.8),
@@ -108,8 +128,7 @@ class App extends React.Component {
           <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
           <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
           <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
-          <div>last</div>
-          <div>last</div>
+          <div>还有</div>
         </div>
       </div>
     );

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            width: 100%;
+        }
+
+        aside {
+            height: 100%;
+            width: 100%;
+        }
+
+        .draw {
+            width: 60px;
+            height: 500px;
+            border: 2px solid #ccc;
+            overflow: hidden;
+            position: fixed;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%)
+        }
+
+        ul:after {
+            content: "";
+            display: block;
+            height: 0;
+            line-height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+
+        ul {
+            zoom: 1;
+        }
+
+        li {
+            list-style: none;
+            float: left;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <aside class="main">
+        <div class="draw" id="draw">
+            <ul>
+                <li style="background:red">列表1</li>
+                <li style="background:yellow">列表1</li>
+                <li style="background:green">列表1</li>
+                <li style="background:orange">列表1</li>
+                <li style="background:purple">列表1</li>
+                <li style="background:brown">列表1</li>
+                <li style="background:yellowgreen">列表1</li>
+                <li style="background:cyan">列表1</li>
+                <li style="background:violet">列表1</li>
+                <li style="background:yellowgreen">列表1</li>
+                <li style="background:cyan">列表1</li>
+                <li style="background:violet">列表1</li>
+                <li style="background:yellowgreen">列表1</li>
+                <li style="background:cyan">列表1</li>
+                <li style="background:violet">列表1</li>
+            </ul>
+        </div>
+    </aside>
+    <script>
+        let draw = document.querySelector('#draw');
+        let ul = draw.children[0];
+        let firstStartY = 0;
+        let totalDistant = 0; //用来记录每次触摸时上一次的偏移总距离
+        let maxDown = 50;
+        let maxUp = -(ul.offsetHeight - draw.offsetHeight + maxDown);
+        let maxUpBounce = 0;
+        let maxDownBouce = -(ul.offsetHeight - draw.offsetHeight)
+
+        //开始触摸
+        ul.addEventListener('touchstart', function (e) {
+            firstStartY = e.changedTouches[0].clientY;
+        })
+
+        //触摸中
+        ul.addEventListener('touchmove', function (e) {
+            ul.style.transition = "none"
+            let distant = e.changedTouches[0].clientY - firstStartY;
+            var tempDistant = distant + totalDistant; //加上上一次滑动的距离
+            if (tempDistant > maxDown) {
+                tempDistant = maxDown
+            } else if (tempDistant < maxUp) {
+                tempDistant = maxUp
+            }
+            ul.style.transition = "transform .3s"
+            ul.style.transform = `translateY(${tempDistant}px)`;
+        })
+
+        //触摸结束
+        ul.addEventListener('touchend', function (e) {
+            let distant = e.changedTouches[0].clientY - firstStartY;
+            totalDistant = totalDistant + distant; //记录上一次滑动的距离
+            if (totalDistant > maxUpBounce) {
+                totalDistant = maxUpBounce;
+                ul.style.transition = "transform .5s"
+                ul.style.transform = `translateY(${totalDistant}px)`;
+            } else if (totalDistant < maxDownBouce) {
+                totalDistant = maxDownBouce;
+                ul.style.transition = "transform .5s"
+                ul.style.transform = `translateY(${totalDistant}px)`;
+            }
+        })
+
+    </script>
+</body>
+
+</html>

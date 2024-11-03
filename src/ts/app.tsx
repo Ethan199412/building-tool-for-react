@@ -11,6 +11,11 @@ import img from "../assets/react.jpg";
 import { useRef, useState } from "react";
 
 console.log("[p1.3] haha");
+enum PageState {
+  Normal = 0,
+  ShouldRefreshAfterEnd = 1,
+  shouldGotoNextAfterEnd = 2,
+}
 class App extends React.Component {
   constructor(props: any) {
     super(props);
@@ -26,10 +31,12 @@ class App extends React.Component {
       height: undefined,
       imgList: [
         "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg",
-        // "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg",
-        // "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg",
-        // "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg"
+        "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg",
+        "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg",
+        "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg"
       ],
+      state: PageState.Normal,
+      bottomHint:'下滑翻页'
     };
   }
 
@@ -39,6 +46,9 @@ class App extends React.Component {
     // (window as any).container = document.querySelector(".container");
     // setTimeout(() => {
     // }, 1000);
+    if (this.state.imgList.length == 0) {
+      this.handleImgLoad();
+    }
   }
 
   handleImgLoad = () => {
@@ -53,7 +63,7 @@ class App extends React.Component {
       loadNum: this.loadNumber,
       imgList: this.state.imgList.length,
     });
-    if (this.loadNumber == this.state.imgList.length) {
+    if (this.loadNumber >= this.state.imgList.length) {
       // 有滚动
       if (scrollHeight > clientHeight) {
       } else {
@@ -127,26 +137,48 @@ class App extends React.Component {
         moveDistance: topOffset ** 0.8,
         sec: 0,
       });
+      if (topOffset > 300) {
+        this.setState({
+          state: PageState.ShouldRefreshAfterEnd,
+        });
+      }
       return;
       //   return;
     }
 
     // 滚动条在底部
-    // 这个公式很重要，判断滚动条是否触底的重要条件
+    // 这个公式很重要，判断滚动条是否触底的重要条件, 往下滑
     if (scrollTop + clientHeight >= scrollHeight) {
       console.log("[p1.5] bottomOffset", bottomOffset);
       this.setState({
         moveDistance: -((-bottomOffset) ** 0.8),
         sec: 0,
       });
+
+      if (-bottomOffset > 300) {
+          this.setState({
+            state: PageState.shouldGotoNextAfterEnd,
+            bottomHint: '松手去下一个 tab'
+          });
+      }else{
+        this.setState({
+            state: PageState.Normal,
+            bottomHint: '下滑翻页'
+        })
+      }
     }
   };
 
   handleTouchEnd = (e) => {
     console.log("[p1.4] moveDistance", this.state.moveDistance);
+    if(this.state.state == PageState.shouldGotoNextAfterEnd){
+        window.location.href = 'http://www.baidu.com'
+    }
     this.setState({
       moveDistance: 0,
       sec: 300,
+      bottomHint: '下滑翻页',
+      state: PageState.Normal
     });
   };
 
@@ -165,9 +197,11 @@ class App extends React.Component {
           }}
         >
           {this.state.imgList.map((e, index) => (
-            <img src={e} key={index} onLoad={this.handleImgLoad}></img>
+            <div key={index}>
+              <img src={e} onLoad={this.handleImgLoad}></img>
+            </div>
           ))}
-          <div className={this.state.bottomClassName}>下滑翻页</div>
+          <div className={this.state.bottomClassName}>{this.state.bottomHint}</div>
         </div>
       </div>
     );

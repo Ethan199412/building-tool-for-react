@@ -14,13 +14,16 @@ rules.forEach(e => {
     }
 })
 
+const host = 'localhost'
 const port = 3003
 exports.default = merge(config, {
     mode,
     devServer: {
         contentBase: path.join(__dirname, "../html/dev"), // 放 html 的位置
         port,
-        publicPath: `http://localhost:${port}/dist/`, // html 引 js 的位置
+        host,
+        public: `${host}:3003`,
+        publicPath: `http://${host}:${port}/dist/`, // html 引 js 的位置
         hot: true,
         stats: {
             all: false,

@@ -18,7 +18,7 @@ class App extends React.Component {
     this.state = {
       scrollYStart: 0,
       moveDistance: 0,
-      sec: 0
+      sec: 0,
     };
   }
 
@@ -42,42 +42,48 @@ class App extends React.Component {
 
   handleTouchMove = (e) => {
     // console.log("click triggered");
-    const scrollTop = document
+    const scrollEleTop = document
       .querySelector(".scroll")
       ?.getBoundingClientRect().top;
 
     const containerTop = document
       .querySelector(".container")
       ?.getBoundingClientRect().top;
-    console.log("[p1.1] ", {
-      scrollTop,
-      containerTop,
-      y: e.touches[0].clientY,
-    });
 
     const currentMouseY = e.touches[0].clientY;
 
-    if (scrollTop! - containerTop! >= 10) {
+    const { scrollTop, scrollHeight, clientHeight } =
+      document.querySelector(".container")!;
+
+    console.log("[p1.3]", { scrollTop, scrollHeight, clientHeight });
+
+    // 滚动条在顶部
+    if (scrollEleTop! - containerTop! >= 10) {
       const offset = currentMouseY - this.state.scrollYStart;
-      console.log("[p1.2]", {
-        currentMouseY,
-        scrollYStart: this.state.scrollYStart,
-        offset,
-        moveDistance: offset**0.8
-      });
       this.setState({
-        moveDistance: offset**0.8,
-        sec: 0
+        moveDistance: offset ** 0.8,
+        sec: 0,
       });
+      return
+    }
+
+    // 滚动条在底部
+    if (scrollTop + clientHeight >= scrollHeight) {
+        const offset = currentMouseY - this.state.scrollYStart;
+        console.log('[p1.5] offset', offset)
+        this.setState({
+            moveDistance: -((-offset) ** 0.8),
+            sec: 0,
+          });
     }
   };
 
   handleTouchEnd = (e) => {
-    console.log('[p1.4] moveDistance', this.state.moveDistance)
+    console.log("[p1.4] moveDistance", this.state.moveDistance);
     this.setState({
-        moveDistance: 0,
-        sec: 300,
-    })
+      moveDistance: 0,
+      sec: 300,
+    });
   };
 
   handleMouseUp = () => {
@@ -102,6 +108,8 @@ class App extends React.Component {
           <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
           <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
           <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
+          <div>last</div>
+          <div>last</div>
         </div>
       </div>
     );

@@ -23,28 +23,47 @@ class App extends React.Component {
       topScrollYStart: 0,
       downScrollYStart: 0,
       bottomClassName: "stick",
-      height: undefined
+      height: undefined,
+      imgList: [
+        "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg",
+        // "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg",
+        // "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg",
+        // "https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg"
+      ],
     };
   }
 
+  loadNumber = 0;
+
   componentDidMount(): void {
     // (window as any).container = document.querySelector(".container");
-    setTimeout(() => {
-      const { scrollTop, scrollHeight, clientHeight } =
-        document.querySelector(".container")!;
+    // setTimeout(() => {
+    // }, 1000);
+  }
 
-      console.log("[p1.4]", { clientHeight, scrollHeight });
+  handleImgLoad = () => {
+    const { scrollTop, scrollHeight, clientHeight } =
+      document.querySelector(".container")!;
 
+    console.log("[p1.5]", { clientHeight, scrollHeight });
+
+    this.loadNumber++;
+
+    console.log("[p1.51]", {
+      loadNum: this.loadNumber,
+      imgList: this.state.imgList.length,
+    });
+    if (this.loadNumber == this.state.imgList.length) {
       // 有滚动
       if (scrollHeight > clientHeight) {
       } else {
         this.setState({
           bottomClassName: "bottom",
-          height: '100%'
+          height: "calc(100% - 20px)",
         });
       }
-    }, 1000);
-  }
+    }
+  };
 
   state: any;
 
@@ -99,23 +118,25 @@ class App extends React.Component {
       // return
     }
 
+    const topOffset = currentMouseY - this.state.topScrollYStart;
+    const bottomOffset = currentMouseY - this.state.downScrollYStart;
     // 滚动条在顶部
-    if (scrollEleTop! - containerTop! >= 10) {
-      const offset = currentMouseY - this.state.topScrollYStart;
+    if (topOffset > 0 && scrollEleTop! - containerTop! >= 10) {
+      console.log("[p1.5] topOff", { topOffset, bottomOffset });
       this.setState({
-        moveDistance: offset ** 0.8,
+        moveDistance: topOffset ** 0.8,
         sec: 0,
       });
       return;
+      //   return;
     }
 
     // 滚动条在底部
     // 这个公式很重要，判断滚动条是否触底的重要条件
     if (scrollTop + clientHeight >= scrollHeight) {
-      const offset = currentMouseY - this.state.downScrollYStart;
-      console.log("[p1.5] offset", offset);
+      console.log("[p1.5] bottomOffset", bottomOffset);
       this.setState({
-        moveDistance: -((-offset) ** 0.8),
+        moveDistance: -((-bottomOffset) ** 0.8),
         sec: 0,
       });
     }
@@ -140,16 +161,14 @@ class App extends React.Component {
           style={{
             transform: `translateY(${this.state.moveDistance}px)`,
             transition: `transform ${this.state.sec}ms`,
-            height: this.state.height
+            height: this.state.height,
           }}
         >
-          {/* <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
-          <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" /> */}
-          <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
-          <img src="https://www.shenmegeng.cn/uploads/20220215/11e181d18aaa441bc301b1973a881e05.jpg" />
+          {this.state.imgList.map((e, index) => (
+            <img src={e} key={index} onLoad={this.handleImgLoad}></img>
+          ))}
           <div className={this.state.bottomClassName}>下滑翻页</div>
         </div>
-        
       </div>
     );
   }

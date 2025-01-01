@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./ts/app";
+import Picker from './ts/picker'
 
 console.log('index.js 加载')
 
@@ -15,5 +16,6 @@ console.log('index.js 加载')
 //             })
 //         })
 // }
+const items = new Array(100).fill('').map((e,index)=>'item '+index)
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App items={items}/>, document.getElementById("root"));

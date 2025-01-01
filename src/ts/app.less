@@ -1,8 +1,48 @@
-.App {
-  h1 {
-    color: red; 
-  }
+.picker {
+  width: 200px;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+  // border: 1px solid #ccc;
+  border-radius: 8px;
+  touch-action: none; // 禁用默认触摸行为
+}
 
-  margin: 2rem;
-  font-family: Arial, Helvetica, sans-serif;
+.picker-list {
+  transition: transform 0.2s ease-out; // 平滑滚动动画
+}
+
+.picker-item {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #666;
+  transition: font-size 0.2s, color 0.2s; // 选中项的动画
+}
+
+.picker-item.selected {
+  font-size: 24px;
+  color: #000;
+  font-weight: bold;
+}
+
+.picker-mask-top,
+.picker-mask-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50px;
+  pointer-events: none; // 防止遮罩拦截事件
+}
+
+.picker-mask-top {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.picker-mask-bottom {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
 }

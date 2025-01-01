@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arc Scrollbar</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
+
+    .container {
+      perspective: 1000px; /* 透视效果，增强 3D 感 */
+    }
+
+    .arc {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      transform-style: preserve-3d; /* 保持 3D 变换 */
+      transition: transform 0.5s ease-out; /* 平滑过渡 */
+    }
+
+    .item {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: #3498db;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      border-radius: 50%; /* 圆形 */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* 阴影 */
+      transform-origin: center center -150px; /* 设置旋转中心 */
+    }
+
+    /* 动态设置每个选项的旋转角度 */
+    .item:nth-child(1) { transform: rotateY(0deg) translateZ(150px); }
+    .item:nth-child(2) { transform: rotateY(20deg) translateZ(150px); }
+    .item:nth-child(3) { transform: rotateY(40deg) translateZ(150px); }
+    .item:nth-child(4) { transform: rotateY(60deg) translateZ(150px); }
+    .item:nth-child(5) { transform: rotateY(80deg) translateZ(150px); }
+    .item:nth-child(6) { transform: rotateY(100deg) translateZ(150px); }
+    .item:nth-child(7) { transform: rotateY(120deg) translateZ(150px); }
+    .item:nth-child(8) { transform: rotateY(140deg) translateZ(150px); }
+    .item:nth-child(9) { transform: rotateY(160deg) translateZ(150px); }
+    .item:nth-child(10) { transform: rotateY(180deg) translateZ(150px); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="arc">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+      <div class="item">7</div>
+      <div class="item">8</div>
+      <div class="item">9</div>
+      <div class="item">10</div>
+    </div>
+  </div>
+
+  <script>
+    const arc = document.querySelector('.arc');
+    let currentAngle = 0;
+
+    // 鼠标滚轮事件
+    arc.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      currentAngle += e.deltaY * 0.1; // 根据滚轮速度调整角度
+      arc.style.transform = `rotateY(${currentAngle}deg)`; // 更新旋转角度
+    });
+
+    // 触摸事件
+    let startX = 0;
+    let isDragging = false;
+
+    arc.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    arc.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const touchX = e.touches[0].clientX;
+      const deltaX = touchX - startX;
+      currentAngle += deltaX * 0.5; // 根据触摸移动距离调整角度
+      arc.style.transform = `rotateY(${currentAngle}deg)`; // 更新旋转角度
+      startX = touchX;
+    });
+
+    arc.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>

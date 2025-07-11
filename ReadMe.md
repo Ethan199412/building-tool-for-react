@@ -18,4 +18,7 @@
 - oneOf
 - 使用了 clean-webpack-plugin
 
+## 依赖
+- node 16
+
 后续会添加更多功能，敬请期待 

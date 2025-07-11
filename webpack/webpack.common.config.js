@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 function getConfig(mode) {
     return {
-        entry: "./src/index.js",
+        entry: "./src/index.tsx",
         output: {
             path: path.resolve(__dirname, "../dist/"),
             publicPath: mode == 'production' ? "http://81.70.46.244/" : "http://localhost:3003/dist/",

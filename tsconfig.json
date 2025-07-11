@@ -2,8 +2,8 @@
     "include": [
         "src/**/*.ts",
         "src/**/*.d.ts",
-        "index.d.ts"
-    ],
+        "src/types/index.d.ts"
+, "src/index.tsx"    ],
     "compilerOptions": {
         "outDir": "./dist/",
         "noImplicitAny": false,

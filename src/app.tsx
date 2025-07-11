@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./app.less";
 import axios from "axios";
+import img from "./assets/react.jpg";
 
 // axios.defaults.withCredentials = true;
 
@@ -23,10 +24,11 @@ class TestDiff extends React.Component<any, any> {
   // 问题的原因在于 oldChildrenMap 里面的 rootId 重复了
   render() {
     return (
-      <div>
-        <div>hi</div>
-        <button onClick={this.handleClick}>fetch</button>
-      </div>
+      <div className="App" >
+      <img src={img} style={{ width: 100 }} />
+      <h1> This is a building Tool designed by Ethan, Welcome for using. </h1>
+      <button onClick={this.handleClick}>fetch</button>
+  </div>
     );
   }
 }

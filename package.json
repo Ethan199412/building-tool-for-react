@@ -56,5 +56,8 @@
   "sideEffects": [
     "*.css",
     "*.less"
-  ]
+  ],
+  "engines": {
+    "node": "16.x"
+  }
 }

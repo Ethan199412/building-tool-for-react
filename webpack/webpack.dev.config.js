@@ -14,11 +14,12 @@ rules.forEach(e => {
     }
 })
 
-const port = 3003
+const port = 3004
 exports.default = merge(config, {
     mode,
     devServer: {
         contentBase: path.join(__dirname, "../html/dev"), // 放 html 的位置
+        historyApiFallback: true,
         port,
         publicPath: `http://localhost:${port}/dist/`, // html 引 js 的位置
         hot: true,

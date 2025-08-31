@@ -8,7 +8,7 @@ function getConfig(mode) {
         entry: "./src/index.tsx",
         output: {
             path: path.resolve(__dirname, "../dist/"),
-            publicPath: mode == 'production' ? "http://81.70.46.244/" : "http://localhost:3004/dist/",
+            publicPath: mode == 'production' ? "http://localhost:5500/" : "http://localhost:3003/dist/",
             filename: mode == 'production' ? "bundle.[contenthash:10].js" : "bundle.js"
         },
         module: {

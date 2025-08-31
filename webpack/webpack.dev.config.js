@@ -14,7 +14,7 @@ rules.forEach(e => {
     }
 })
 
-const port = 3004
+const port = 3003
 exports.default = merge(config, {
     mode,
     devServer: {
